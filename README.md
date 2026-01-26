@@ -10,7 +10,7 @@ Registry is a containerized service deployed using Docker Compose. This setup pr
 
 ### Using curl
 ```shell
-curl -q -LSsf "https://raw.githubusercontent.com/composemgr/registry/main/docker-compose.yaml" | docker compose -f - up -d
+curl -q -LSsf "https://raw.githubusercontent.com/composemgr/registry/main/docker-compose.yaml" -o compose.yml
 ```
 
 ### Using git

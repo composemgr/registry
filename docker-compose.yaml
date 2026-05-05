@@ -54,7 +54,7 @@ services:
     ports:
       - 172.17.0.1:59087:5000
     volumes:
-      - './rootfs/data/registry:/var/lib/registry'
+      - './volumes/data/registry:/var/lib/registry'
     networks:
       - registry
 

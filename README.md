@@ -41,8 +41,8 @@ BASE_DOMAIN_NAME=
 
 ## 📂 Volumes
 
-- `./rootfs/config/registry` - Configuration files
-- `./rootfs/data/registry` - Application data
+- `./volumes/config/registry` - Configuration files
+- `./volumes/data/registry` - Application data
 
 ## 🔐 Security
 

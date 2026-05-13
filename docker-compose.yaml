@@ -1,4 +1,4 @@
-# nginx proxy address - http://172.17.0.1:5000
+# nginx proxy address - http://172.17.0.1:59087
 
 name: registry
 x-logging: &default-logging
@@ -9,7 +9,7 @@ x-logging: &default-logging
 
 services:
   ui:
-    image: joxit/docker-registry-ui:main
+    image: joxit/docker-registry-ui:latest
     container_name: registry-ui
     hostname: registry-ui
     restart: always
@@ -17,17 +17,17 @@ services:
     logging: *default-logging
     environment:
       TZ: ${TZ:-America/New_York}
-      SINGLE_REGISTRY: true
-      REGISTRY_TITLE: CasjaysDev Registry
-      DELETE_IMAGES: false
-      SHOW_CONTENT_DIGEST: true
+      SINGLE_REGISTRY: "true"
+      REGISTRY_TITLE: ${REGISTRY_TITLE:-Docker Registry}
+      DELETE_IMAGES: ${DELETE_IMAGES:-false}
+      SHOW_CONTENT_DIGEST: "true"
       NGINX_PROXY_PASS_URL: http://registry-server:5000
-      SHOW_CATALOG_NB_TAGS: true
-      CATALOG_MIN_BRANCHES: 1
-      CATALOG_MAX_BRANCHES: 1
-      TAGLIST_PAGE_SIZE: 100
-      REGISTRY_SECURED: true
-      CATALOG_ELEMENTS_LIMIT: 999999
+      SHOW_CATALOG_NB_TAGS: "true"
+      CATALOG_MIN_BRANCHES: "1"
+      CATALOG_MAX_BRANCHES: "1"
+      TAGLIST_PAGE_SIZE: "100"
+      REGISTRY_SECURED: "true"
+      CATALOG_ELEMENTS_LIMIT: "999999"
     ports:
       - 172.17.0.1:59087:80
     depends_on:
@@ -44,15 +44,15 @@ services:
     logging: *default-logging
     environment:
       TZ: ${TZ:-America/New_York}
-      - 'REGISTRY_CATALOG_MAXENTRIES=999999'
-      - 'REGISTRY_STORAGE_DELETE_ENABLED=true'
-      - 'REGISTRY_HTTP_HEADERS_Access-Control-Allow-Origin=[*]'
-      - 'REGISTRY_HTTP_HEADERS_Access-Control-Allow-Credentials=[true]'
-      - 'REGISTRY_HTTP_HEADERS_Access-Control-Expose-Headers=[Docker-Content-Digest]'
-      - 'REGISTRY_HTTP_HEADERS_Access-Control-Allow-Methods=[HEAD,GET,OPTIONS,DELETE]'
-      - 'REGISTRY_HTTP_HEADERS_Access-Control-Allow-Headers=[Authorization,Accept,Cache-Control]'
+      REGISTRY_CATALOG_MAXENTRIES: "999999"
+      REGISTRY_STORAGE_DELETE_ENABLED: "true"
+      REGISTRY_HTTP_HEADERS_Access-Control-Allow-Origin: "[*]"
+      REGISTRY_HTTP_HEADERS_Access-Control-Allow-Credentials: "[true]"
+      REGISTRY_HTTP_HEADERS_Access-Control-Expose-Headers: "[Docker-Content-Digest]"
+      REGISTRY_HTTP_HEADERS_Access-Control-Allow-Methods: "[HEAD,GET,OPTIONS,DELETE]"
+      REGISTRY_HTTP_HEADERS_Access-Control-Allow-Headers: "[Authorization,Accept,Cache-Control]"
     ports:
-      - 172.17.0.1:59087:5000
+      - 172.17.0.1:5000:5000
     volumes:
       - './volumes/data/registry:/var/lib/registry'
     networks:

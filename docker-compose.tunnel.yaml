@@ -32,6 +32,12 @@ services:
       REGISTRY_SECURED: "false"
       # The UI proxies registry API calls to the registry service
       NGINX_PROXY_PASS_URL: http://registry-server:5000
+    healthcheck:
+      test: ['CMD', 'nc', '-z', '127.0.0.1', '80']
+      interval: 30s
+      timeout: 10s
+      retries: 5
+      start_period: 30s
     depends_on:
       - server
     labels:
@@ -63,6 +69,12 @@ services:
       REGISTRY_HTTP_HEADERS_Access-Control-Expose-Headers: '[Docker-Content-Digest]'
       REGISTRY_HTTP_HEADERS_Access-Control-Allow-Methods: '[HEAD,GET,OPTIONS,DELETE]'
       REGISTRY_HTTP_HEADERS_Access-Control-Allow-Headers: '[Authorization,Accept,Cache-Control]'
+    healthcheck:
+      test: ['CMD', 'nc', '-z', '127.0.0.1', '5000']
+      interval: 30s
+      timeout: 10s
+      retries: 5
+      start_period: 30s
     volumes:
       - './volumes/data/registry:/var/lib/registry:z'
     networks:
